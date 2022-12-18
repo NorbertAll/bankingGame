@@ -1,7 +1,8 @@
 import {Card, Types, Weights} from './Card.js';
 export class Deck{
-    cards=[];
+    
     constructor(){
+        this.cards=[];
         Types.forEach(type => {
             Weights.forEach(weight=> this.cards.push(new Card(weight, type)))
         });}
