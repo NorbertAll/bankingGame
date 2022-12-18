@@ -4,9 +4,9 @@ export class Table{
         this.playersCards=playersCards;
     }
     showPlayersCards(card){
-        this.playersCards.appendChild(card)
+        this.playersCards.appendChild(card.render())
     }
     showDealersCards(card){
-        this.dealersCards.appendChild(card)
+        this.dealersCards.appendChild(card.render())
     }
 }
