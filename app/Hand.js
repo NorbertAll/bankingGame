@@ -8,7 +8,7 @@ export class Hand{
     countCardByWeight(weight){
         return this.cards.filter(card=>card.weight==weight).length;
     }
-    getStrngth(){
+    getStrength(){
         const cards= this.cards.map(card=>{
             if('A'.includes(card.weight)){
                 return 11;

@@ -3,7 +3,9 @@ import { Player } from "./Player.js";
 import { Table } from "./Table.js";
 
 class Game{
-    constructor({player, table, hitButton, standButton}){
+    constructor({dealerPoints, playerPoints, player, table, hitButton, standButton}){
+        this.playerPoints=playerPoints;
+        this.dealerPoints=dealerPoints;
         this.hitButton=hitButton;
         this.standButton=standButton;
         this.player=player;
@@ -30,9 +32,10 @@ class Game{
             let card2=this.deck.pickOne();
             this.dealer.hand.addCard(card2);
             this.table.showDealersCards(card2);
-            
-            
+ 
         }
+        this.playerPoints.innerHTML=this.player.calculatePoints();
+        this.dealerPoints.innerHTML=this.dealer.calculatePoints();
     }
 }
 const table= new Table(document.getElementById('dealersCards'), document.getElementById('playersCards'))
@@ -40,6 +43,8 @@ const player=new Player('Norbert');
 const game=new Game({
     hitButton:document.getElementById('hit'),
     standButton: document.getElementById('stand'),
+    dealerPoints: document.getElementById('dealerPoints'),
+    playerPoints: document.getElementById('playerPoints'),
     player,
     table
 });
