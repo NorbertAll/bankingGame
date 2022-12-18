@@ -23,6 +23,7 @@ class Game{
         const card=this.deck.pickOne();
         this.player.hand.addCard(card);
         this.table.showPlayersCards(card);
+        this.playerPoints.innerHTML=this.player.calculatePoints();
     }
     dealCards(){
         for(let n=0; n<2; n++){
