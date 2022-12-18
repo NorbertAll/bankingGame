@@ -15,7 +15,8 @@ class Game{
         this.deck.shuffle(); 
     }
     run(){
-        this.hitButton.addEventListener('click', (event)=>this.hitCard())
+        this.hitButton.addEventListener('click', (event)=>this.hitCard());
+        this.standButton.addEventListener('click', (event)=>this.dealerPlays());
         this.dealCards();
         
     }
@@ -37,6 +38,14 @@ class Game{
         }
         this.playerPoints.innerHTML=this.player.calculatePoints();
         this.dealerPoints.innerHTML=this.dealer.calculatePoints();
+    }
+    dealerPlays(){
+        while(this.dealer.points<=this.player.points&& this.dealer.points<=21){
+            const card=this.deck.pickOne();
+            this.dealer.hand.addCard(card);
+            this.table.showDealersCards(card);
+            this.dealerPoints.innerHTML=this.dealer.calculatePoints();
+        }
     }
 }
 const table= new Table(document.getElementById('dealersCards'), document.getElementById('playersCards'))
