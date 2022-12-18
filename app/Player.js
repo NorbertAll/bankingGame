@@ -1,4 +1,4 @@
-import { Hand } from "./Hand";
+import { Hand } from "./Hand.js";
 
 export class Player{
     constructor(name){
