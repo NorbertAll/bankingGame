@@ -1,9 +1,11 @@
 import { Deck } from "./Deck.js";
+import { Message } from "./Message.js";
 import { Player } from "./Player.js";
 import { Table } from "./Table.js";
 
 class Game{
-    constructor({dealerPoints, playerPoints, player, table, hitButton, standButton}){
+    constructor({dealerPoints, playerPoints, player, table, hitButton, standButton, messageBox}){
+        this.messageBox=messageBox;
         this.playerPoints=playerPoints;
         this.dealerPoints=dealerPoints;
         this.hitButton=hitButton;
@@ -46,9 +48,37 @@ class Game{
             this.table.showDealersCards(card);
             this.dealerPoints.innerHTML=this.dealer.calculatePoints();
         }
+        this.endTheGame();
+    }
+    endTheGame(){
+        this.hitButton.removeEventListener('click', (event)=>this.hitCard());
+        this.standButton.removeEventListener('click', (event)=>this.dealerPlays());
+        this.hitButton.style.display='none';
+        this.standButton.style.display='none';
+        if(this.player.points===this.dealer.points){
+           this.messageBox.setText('draw').show();
+            return;
+        }
+        if(this.player.points>21){
+            this.messageBox.setText("dealer wins").show();
+            return;
+        }
+        if(this.dealer.points>21){
+            this.messageBox.setText("player wins").show();
+            return;
+        }
+        if(this.dealer.points>this.player.points){
+            this.messageBox.setText("dealers wins").show();
+            return;
+        }
+        if(this.dealerPoints<this.playerPoints){
+            this.messageBox.setText("player wins").show();
+            return;
+        }
     }
 }
 const table= new Table(document.getElementById('dealersCards'), document.getElementById('playersCards'))
+const messageBox=new Message(document.getElementById('message'));
 const player=new Player('Norbert');
 const game=new Game({
     hitButton:document.getElementById('hit'),
@@ -56,6 +86,8 @@ const game=new Game({
     dealerPoints: document.getElementById('dealerPoints'),
     playerPoints: document.getElementById('playerPoints'),
     player,
-    table
+    table,
+    messageBox
+    
 });
 game.run();
